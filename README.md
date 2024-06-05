@@ -65,4 +65,7 @@ a) Shown the usage of our decision tree for the [automotive efficiency](https://
 b) Compared the performance of your model with the decision tree module from scikit learn.
     
    > Have a look at `auto-efficiency.py` and `auto-efficiency.ipynb` files for the code and results for the above task.
-    
+   <div align=center>
+   <img src="result_auto_efficiency.png" >
+</div>
+
