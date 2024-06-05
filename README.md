@@ -69,3 +69,6 @@ b) Compared the performance of your model with the decision tree module from sci
    <img src="result_auto_efficiency.png" >
 </div>
 
+### Contributors
+- [Jinil Patel](https://github.com/Zeenu03)
+- [Sumeet Sawale](https://github.com/SumeetSawale)
