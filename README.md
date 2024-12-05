@@ -1,74 +1,103 @@
-# Questions
+# DecisionTree-Library: A Custom Implementation of Decision Tree Algorithm
 
-## Complete decision tree implementation in tree/base.py. 
+## Overview
 
-In tackling the task of implementing a decision tree in the tree/base.py file, I focused on ensuring that the decision tree works across four different cases: i) discrete features with discrete output, ii) discrete features with real output,iii) real features with discrete output, and iv)real features with real output. Here's an overview of the steps I took to complete this task:
+**DecisionTree-Library** is a Python-based implementation of a Decision Tree model designed for educational and experimental purposes. The library includes modules for training and evaluating decision trees on various datasets, along with utilities for data preprocessing and visualization. The repository also demonstrates the application of the decision tree model to real-world problems like automotive efficiency analysis, comparing its performance with Scikit-learn’s implementation.
 
-## Implementation in tree/base.py
+---
 
-### Decision Tree Class
-1. Initialization: I set up the initialization method to accept parameters like the criterion for splitting, the maximum depth of the tree, and the minimum samples required to split a node.
-2. Fitting the Tree: Implemented the fit method to build the tree recursively. This method uses the chosen splitting criterion (Gini Index, Information Gain for discrete output, or Information Gain based on MSE for real output) to decide the best splits.
-3. Prediction: Added a predict method to traverse the built tree and make predictions for new data points.
-4. Splitting: Created methods to find the best split and to split the data based on features and threshold values.
-5. Stopping Criteria: Incorporated stopping criteria based on maximum depth and minimum sample split to prevent overfitting.
-### Metrics in metrics.py
-1. Performance Metrics Functions: Completed functions for calculating Gini Index, Entropy (for Information Gain), and MSE (Mean Squared Error) to be used as criteria for splitting the nodes in the decision tree.
-2. Helper Functions: Added helper functions to compute the necessary metrics given subsets of the data.
-### Utilities in utils.py
-1. Data Handling Functions: Implemented functions to handle data preprocessing tasks, such as splitting data into training and testing sets and normalizing or binarizing features as needed.
-2. Tree Visualization: Added functions to visualize the tree, either textually or graphically, to help with understanding the structure and decisions made by the tree.
-### Running and Testing with usage.py
-1. Testing: Ran the provided `usage.py` script to verify the correctness of the implementation. This involved:
-    - Checking if the decision tree can handle all four cases (discrete features/discrete output, discrete features/real output, real features/discrete output, real features/real output).
-    - Ensuring that the performance metrics are computed correctly and used appropriately during tree building.
-    - Verifying the accuracy of predictions and the overall functionality of the tree.
+## Features
 
+### 1. Decision Tree Class (`tree/base.py`)
+- **Initialization:** Allows setting hyperparameters like maximum tree depth and minimum samples per split.
+- **Training (`fit` method):** Builds the decision tree using recursive splitting.
+- **Prediction (`predict` method):** Predicts target values for unseen data.
+- **Splitting:** Implements data splitting based on the chosen performance metric.
+- **Stopping Criteria:** Includes mechanisms to prevent overfitting by limiting tree depth or minimum split size.
 
-### File Structure
-- `metrics.py`: Complete the performance metrics functions in this file. 
+### 2. Performance Metrics (`tree/metrics.py`)
+- Implemented metrics for evaluating splits:
+  - **Gini Index** (for classification)
+  - **Entropy** (for classification)
+  - **Mean Squared Error (MSE)** (for regression)
+- Helper functions to calculate these metrics efficiently.
 
-- `usage.py`: Run this file to check your solutions.
+### 3. Utilities (`tree/utils.py`)
+- Functions for:
+  - **Data Preprocessing:** Handles missing values, encoding categorical variables, etc.
+  - **Tree Visualization:** Visualizes the decision tree structure and splits.
 
-- tree (Directory): Module for decision tree.
-    - `base.py` : Complete Decision Tree Class.
-    - `utils.py`: Complete all utility functions.
+### 4. Experiments on Synthetic Data (`tree/classification-exp.py`)
+- **Dataset Generation:** Utilized `make_classification` from Scikit-learn to create a synthetic dataset.
+- **Model Training:** Trained the decision tree on training data and evaluated on test data.
+- **Cross-Validation:** 
+  - Conducted 5-fold cross-validation.
+  - Used nested cross-validation to tune hyperparameters such as tree depth and minimum samples split.
+- **Evaluation Metrics:**
+  - Accuracy
+  - Precision
+  - Recall
 
-> You should run `usage.py` to check your solutions. 
+### 5. Usage and Testing (`tree/usage.py`)
+- Verified correctness of implementation through rigorous tests.
+- Ensured the model handles edge cases and computes performance metrics accurately.
 
+### 6. Automotive Efficiency Analysis (`tree/auto-efficiency.py` and `auto-efficiency.ipynb`)
+- Applied the decision tree to an automotive efficiency dataset.
+- Compared the performance with Scikit-learn’s decision tree implementation.
+- Demonstrated model evaluation through performance metrics.
 
-## Part 2: Decision Tree Experiments 
+---
 
-    Generate your dataset using the following lines of code
+## Installation
 
-    ```python
-    from sklearn.datasets import make_classification
-    X, y = make_classification(
-    n_features=2, n_redundant=0, n_informative=2, random_state=1, n_clusters_per_class=2, class_sep=0.5)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/DecisionTree-Library.git
+   cd DecisionTree-Library
+   ```
 
-    # For plotting
-    import matplotlib.pyplot as plt
-    plt.scatter(X[:, 0], X[:, 1], c=y)
-    ```
+---
 
-Implemented the decision tree model on the above datasets and performed the following experiments:
+## Usage
 
-a) The first 70% of the data used for training purposes and the remaining 30% for test purposes. Trained the model on training data and found the accuracy, per-class precision and recall of the decision tree model on the test data.
+1. Import the `DecisionTree` class:
+   ```python
+   from tree.base import DecisionTree
+   ```
 
-b) Then used 5 fold cross-validation on the dataset. Using nested cross-validation found the optimum depth of the tree. 
+2. Train and evaluate the model:
+   ```python
+   tree = DecisionTree(max_depth=5, min_samples_split=10)
+   tree.fit(X_train, y_train)
+   predictions = tree.predict(X_test)
+   ```
 
->  See `classification-exp.py` and `classification.ipynb` files to look at the code for the above experiments.
+3. Visualize the tree:
+   ```python
+   from tree.utils import visualize_tree
+   visualize_tree(tree)
+   ```
 
-## Part 3 
-a) Shown the usage of our decision tree for the [automotive efficiency](https://archive.ics.uci.edu/ml/datasets/auto+mpg) problem.
+---
 
-b) Compared the performance of your model with the decision tree module from scikit learn.
-    
-   > Have a look at `auto-efficiency.py` and `auto-efficiency.ipynb` files for the code and results for the above task.
-   <div align=center>
-   <img src="result_auto_efficiency.png" >
-</div>
+## Experiments and Results
 
-### Contributors
-- [Jinil Patel](https://github.com/Zeenu03)
-- [Sumeet Sawale](https://github.com/SumeetSawale)
+- **Synthetic Dataset:**
+  - Achieved optimal performance metrics after hyperparameter tuning using nested cross-validation.
+- **Automotive Efficiency Dataset:**
+  - Performance was on par with Scikit-learn’s implementation, demonstrating the robustness of the custom model.
+
+---
+
+## Future Improvements
+- Add support for Random Forests.
+- Optimize the algorithm for large datasets.
+- Extend visualization capabilities for better interpretability.
+
+---
+
+## Contributing
+Contributions are welcome! Feel free to fork the repo and submit pull requests for improvements or new features.
+
+---
